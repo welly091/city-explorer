@@ -16,10 +16,12 @@ export default class Explorer extends Component {
     }
   }
 
+  //Update the city value from Input
   updateCity = (e) => {
     this.setState({city: e.target.value})
   }
 
+  //axios.GET method
   handleCityInfo = async (e) => {
     e.preventDefault()
     await axios.get(`https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_LOCATION_API_KEY}&format=json&q=${this.state.city}`)
@@ -35,7 +37,7 @@ export default class Explorer extends Component {
   }
 
   render() {
-    const{lat, lon, visible, showInfo, showError, statusCode} = this.state
+    const{ lat, lon, visible, showInfo, showError, statusCode } = this.state
     return (
       <div className="text-light bg-dark">
           <Form onSubmit={this.handleCityInfo}>
@@ -56,9 +58,7 @@ export default class Explorer extends Component {
               <Image roundedCircle src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATION_API_KEY}&center=${lat},${lon}&zoom=12`} alt='map' style={{display:visible}}></Image>
             </div>
             ): showError ? <div>{statusCode} Error. Please try again.</div> : <div></div>
-            
           }
-          
       </div>
     )
   }
