@@ -22,7 +22,7 @@ export default class Explorer extends Component {
 
   handleCityInfo = async (e) => {
     e.preventDefault()
-    await axios.get(`https://us1.locationiq.com/v1/search.php?ey=${process.env.REACT_APP_LOCATION_API_KEY}&format=json&q=${this.state.city}`)
+    await axios.get(`https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_LOCATION_API_KEY}&format=json&q=${this.state.city}`)
     .then((res) =>{
       this.setState({lat:res.data[0].lat, lon:res.data[0].lon, visible:"inline", showInfo:true})
       console.log(this.state.lat + " " + this.state.lon)
@@ -37,22 +37,25 @@ export default class Explorer extends Component {
   render() {
     const{lat, lon, visible, showInfo, showError, statusCode} = this.state
     return (
-      <div>
+      <div className="text-light bg-dark">
           <Form onSubmit={this.handleCityInfo}>
-              <Form.Group className="m-2">
+              <Form.Group className="m-3 p-5">
                   <Form.Label htmlFor="inputCity">Please Enter A City Name</Form.Label>
                   <Form.Control id="inputCity" placeholder="Enter city.."  onChange={this.updateCity}></Form.Control>
                   <Button variant="info" className="m-2" type="submit">Explorer!</Button>
               </Form.Group>
           </Form>
           {
-            showInfo ? (<div>
-            <div>City: {this.state.city}</div>
-            <div>Latitude: {this.state.lat}</div>
-            <div>Longtitude: {this.state.lon}</div>
-            <Image thumbnail src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATION_API_KEY}&center=${lat},${lon}`} alt='map' style={{display:visible}}></Image>
-          </div>)
-            : showError ? <div>{statusCode} Error. Please try again.</div> : <div></div>
+            showInfo ? (
+            <div className='text-primary p-3 text-center'>
+              <div className='m-4'>
+                <div>City: {this.state.city}</div>
+                <div>Latitude: {this.state.lat}</div>
+                <div>Longtitude: {this.state.lon}</div>
+              </div>
+              <Image roundedCircle src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATION_API_KEY}&center=${lat},${lon}&zoom=12`} alt='map' style={{display:visible}}></Image>
+            </div>
+            ): showError ? <div>{statusCode} Error. Please try again.</div> : <div></div>
             
           }
           
