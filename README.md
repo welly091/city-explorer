@@ -24,7 +24,7 @@ React, axios, bootstrap.
 
 ## Credit and Collaborations
 Cheri Hodge. She helped us to draw the structure diagram for this project.
-![Alt img]https://drive.google.com/file/d/1-EVNox_eszuib5-YzOxVpPkkJq5eAFUt/view
+![Alt lab6]https://drive.google.com/file/d/1-EVNox_eszuib5-YzOxVpPkkJq5eAFUt/view
 
 ##Estimate of time needed to complete: 2 hour
 ##Start time: 2:20pm
