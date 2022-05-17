@@ -28,7 +28,10 @@ Cheri Hodge. She helped us to draw the structure diagram for this project.
 <img src="https://i.imgur.com/kc2j7Q0.png"/>
 
 ##Estimate of time needed to complete: 2 hour
+
 ##Start time: 2:20pm
+
 ##Finish time: 5:00pm
+
 ##Actual time needed to complete: 2:40pm
 
