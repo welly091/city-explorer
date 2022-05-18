@@ -35,3 +35,35 @@ Cheri Hodge. She helped us to draw the structure diagram for this project.
 
 ##Actual time needed to complete: 2:40pm
 
+
+**Version**: 1.0.1
+
+## Overview
+Add another axios request to server and render the data from weather.js.
+
+## Getting Started
+1. Create another axios GET request to server
+2. Build weather.js to render data.
+
+## Architecture
+Node.js, Express.js
+
+## Change Log
+5/17/2022 -- 2:30pm Pair partners discussion.
+5/17/2022 -- 2:51pm Start the server construction.
+5/17/2022 -- 4:00pm Server connected to front-end successfully.
+
+## Credit and Collaborations
+Vida Powerll. She helped us drawed the WRRC diagram for this project.
+<img src="https://imgur.com/QfFbSnU"><img>
+
+
+##Name of feature: city-explorer-api
+
+##Estimate of time needed to complete: 3 hours
+
+##Start time: 2:51pm PST
+
+##Finish time: 5:51pm PST
+
+##Actual time needed to complete: 4 hours
