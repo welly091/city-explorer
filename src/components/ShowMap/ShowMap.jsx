@@ -1,16 +1,18 @@
 import React from 'react'
-import { Image } from 'react-bootstrap'
+import { ListGroup } from 'react-bootstrap'
+import './ShowMap.css'
 
-export default (props) => {  
-    const{city, lat, lon, visible}=props
+const ShowMap = (props) => {  
+    const{city, lat, lon}=props
     return (
         <div>
-            <div className='m-4'>
-                <div>City: {city}</div>
-                <div>Latitude: {lat}</div>
-                <div>Longtitude: {lon}</div>
-              </div>
-              <Image roundedCircle src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATION_API_KEY}&center=${lat},${lon}&zoom=12`} alt='map' style={{display:visible}}></Image>
+            <ListGroup className='mb-1 listgroup'>
+                <ListGroup.Item variant="dark">City: {city}</ListGroup.Item>
+                <ListGroup.Item variant="warning">Latitude: {lat}</ListGroup.Item>
+                <ListGroup.Item variant="warning">Longtitude: {lon}</ListGroup.Item>
+            </ListGroup>
         </div>
     )
 }
+
+export default ShowMap;
