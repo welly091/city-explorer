@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Form, Button, Image} from 'react-bootstrap'
+import {Form, Button, Image} from 'react-bootstrap'
 import axios from 'axios'
 import Weather from '../Weather/Weather.jsx';
+import ForecastWeather from '../ForecastWeather/ForecastWeather.jsx';
 import ShowMap from '../ShowMap/ShowMap.jsx';
 import ShowMovies from '../ShowMovies/ShowMovies.jsx';
 import './Explorer.css'
@@ -18,7 +19,8 @@ export default class Explorer extends Component {
       showError:false,
       statusCode:0,
       weatherDataObj:{},
-      movieDataArray:[]
+      weatherForecast:[],
+      movieDataArray:[],
     }
   }
 
@@ -35,7 +37,8 @@ export default class Explorer extends Component {
       let lat = parseFloat(res.data[0].lat).toFixed(2)
       let lon = parseFloat(res.data[0].lon).toFixed(2)
       this.setState({lat, lon, visible:"inline", showInfo:true})
-      this.getWeatherData(lat, lon)
+      this.getCurrentWeatherData(lat,lon)
+      this.getForecastWeatherData(lat,lon)
       this.getMovieData(this.state.city)
     })
     .catch((error) =>{
@@ -45,9 +48,9 @@ export default class Explorer extends Component {
     })
   }
 
-  getWeatherData = async(lat ,lon) =>{
+  getCurrentWeatherData = (lat ,lon) =>{
     if(this.state.isFound === false) return
-    await axios.get(`${process.env.REACT_APP_SERVER}/weather?lat=${lat}&lon=${lon}`)
+    axios.get(`${process.env.REACT_APP_SERVER}/weather?lat=${lat}&lon=${lon}`)
     .then((res) =>{
       console.log(res.data)
         if(typeof res.data === 'string')this.setState({weatherDataObj:{}})
@@ -58,9 +61,22 @@ export default class Explorer extends Component {
     })
   }
 
-  getMovieData = async(city) =>{
+  getForecastWeatherData = (lat, lon) =>{
     if(this.state.isFound === false) return
-    await axios.get(`${process.env.REACT_APP_SERVER}/movie?city=${city}`)
+    axios.get(`${process.env.REACT_APP_SERVER}/forecast?lat=${lat}&lon=${lon}`)
+    .then((res) =>{
+      console.log(res.data)
+      if(typeof res.data === 'string') this.setState({weatherForecast:[]})
+      else this.setState({weatherForecast:res.data})
+    }).catch((error) =>{
+      this.setState({weatherForecast:[]})
+      console.log({error:"Cannot get forecast weather"})
+    })
+  }
+
+  getMovieData = (city) =>{
+    if(this.state.isFound === false) return
+    axios.get(`${process.env.REACT_APP_SERVER}/movie?city=${city}`)
     .then((res) =>{
       console.log(res.data)
       this.setState({movieDataArray: res.data})
@@ -71,23 +87,36 @@ export default class Explorer extends Component {
   }
 
   render() {
-    const{city, lat, lon, visible, showInfo, showError, statusCode, weatherDataObj, movieDataArray} = this.state
+    const{city, lat, lon, visible, showInfo, showError, statusCode, weatherDataObj, movieDataArray, weatherForecast} = this.state
     return (
-      <div className="text-light bg-dark">
+      <div className="text-light">
           <Form onSubmit={this.handleCityInfo}>
-              <Form.Group className="">
-                  <Form.Label htmlFor="inputCity">Please Enter A City Name</Form.Label>
-                  <Form.Control id="inputCity" placeholder="Enter city.."  onChange={this.updateCity}></Form.Control>
-                  <Button variant="info" className="m-2" type="submit">Explorer!</Button>
-              </Form.Group>
-          </Form>
+            <Form.Group>
+                <Form.Label className="p-3" htmlFor="inputCity">Enter a city name you want to explorer!!</Form.Label>
+                <Form.Control className="m-3" id="inputCity" placeholder="Enter city.."  onChange={this.updateCity}></Form.Control>
+                <Button variant="info" className="m-2" type="submit">Explorer!</Button>
+            </Form.Group>
+        </Form>
           {
             showInfo ? (
-            <div className='text-primary p-3'>
-              <ShowMap city={city} lat={lat} lon={lon} visible={visible} />
-              <Weather windSpeed={weatherDataObj.WindSpeed} temp={weatherDataObj.temp} humidity={weatherDataObj.humidity} description={weatherDataObj.description} />
-              <ShowMovies movieDataArray={movieDataArray}></ShowMovies>
-              <Image src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATION_API_KEY}&center=${lat},${lon}&zoom=12`} alt='map' style={{display:visible}} width="500"></Image>
+            <div className='text-primary p-3 '>
+              <div className='parent'>
+                <div className='item1'>
+                  <ForecastWeather weatherForecast={weatherForecast}/>
+                </div>
+                <div className='item2'>
+                  <ShowMap city={city} lat={lat} lon={lon} visible={visible}/>
+                </div>
+                <div className='item3'>
+                  <Weather windSpeed={weatherDataObj.WindSpeed} temp={weatherDataObj.temp} humidity={weatherDataObj.humidity} description={weatherDataObj.description} />
+                </div>
+                <div className="mapImage">
+                  <Image className="mapItem" src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATION_API_KEY}&center=${lat},${lon}&zoom=12`} alt='map' style={{display:visible}} width="500"></Image>
+                </div>
+                <div className="movieItem">
+                  <ShowMovies className="movieItem" movieDataArray={movieDataArray}></ShowMovies>
+                </div>
+              </div>
             </div>
             ): showError ? <div>{statusCode} Error. Please try again.</div> : <div></div>
           }

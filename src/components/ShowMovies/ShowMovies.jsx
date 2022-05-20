@@ -20,7 +20,7 @@ export default class ShowMovies extends Component {
       const{movieDataArray} = this.state
     return (
         <ListGroup className='carousel mb-1'>
-            <ListGroup.Item variant="dark">Movies that includes this city name: </ListGroup.Item>
+            <ListGroup.Item variant="dark">Movies that includes this city name </ListGroup.Item>
                 <Carousel >
                 {
                     movieDataArray.map((movie,inx) => (

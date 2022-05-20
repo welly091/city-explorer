@@ -55,7 +55,7 @@ Node.js, Express.js
 
 ## Credit and Collaborations
 Vida Powerll. She helped us drawed the WRRC diagram for this project.
-<img src="https://imgur.com/QfFbSnU"><img>
+<img src="https://i.imgur.com/QfFbSnU.jpeg"><img>
 
 
 ##Name of feature: city-explorer-api
@@ -88,7 +88,7 @@ Node.js, Express.js
 
 ## Credit and Collaborations
 Vinny Shipley. We draw out the WRRC diagram.
-<img src="https://imgur.com/s7f0r3i"><img>
+<img src="https://i.imgur.com/s7f0r3i.png"><img>
 
 
 ##Name of feature: city-explorer-api
@@ -100,3 +100,35 @@ Vinny Shipley. We draw out the WRRC diagram.
 ##Finish time: 7:30pm PST
 
 ##Actual time needed to complete: 4 hours and 30 minutes
+
+**Version**: 1.0.3
+
+## Overview
+Modulize functions
+
+## Getting Started
+1. Create a folder to modulize files.
+
+## Architecture
+Node.js, Express.js
+
+## Change Log
+5/19/2022 -- 1:15pm Pair partners discussion.
+5/19/2022 -- 1:30pm Start the project, create axios GET request function for forecast weather data.
+5/19/2022 -- 2:30pm finished backend.
+5/19/2022 -- 5:00pm finished fronend site and website is functional.
+
+## Credit and Collaborations
+Jon Armstrong. We draw out the WRRC diagram.
+<img src="https://i.imgur.com/3dF70Tp.png"><img>
+
+
+##Name of feature: city-explorer-api
+
+##Estimate of time needed to complete: 3 hours
+
+##Start time: 1:30pm PST
+
+##Finish time: 5:00pm PST
+
+##Actual time needed to complete: 3:30 hour
