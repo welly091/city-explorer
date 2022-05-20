@@ -100,7 +100,6 @@ Vinny Shipley. We draw out the WRRC diagram.
 ##Finish time: 7:30pm PST
 
 ##Actual time needed to complete: 4 hours and 30 minutes
-<<<<<<< HEAD
 
 **Version**: 1.0.3
 
@@ -133,5 +132,3 @@ Jon Armstrong. We draw out the WRRC diagram.
 ##Finish time: 5:00pm PST
 
 ##Actual time needed to complete: 3:30 hour
-=======
->>>>>>> 2a21d66f8a53fb79cdb845289890eb429a8418b0
