@@ -5,6 +5,7 @@ import Weather from '../Weather/Weather.jsx';
 import ForecastWeather from '../ForecastWeather/ForecastWeather.jsx';
 import ShowMap from '../ShowMap/ShowMap.jsx';
 import ShowMovies from '../ShowMovies/ShowMovies.jsx';
+import FetchYelp from '../FetchYelp/FetchYelp.jsx'
 import './Explorer.css'
 
 export default class Explorer extends Component {
@@ -21,6 +22,7 @@ export default class Explorer extends Component {
       weatherDataObj:{},
       weatherForecast:[],
       movieDataArray:[],
+      yelpData:[]
     }
   }
 
@@ -40,6 +42,7 @@ export default class Explorer extends Component {
       this.getCurrentWeatherData(lat,lon)
       this.getForecastWeatherData(lat,lon)
       this.getMovieData(this.state.city)
+      this.getYelpData(lat,lon)
     })
     .catch((error) =>{
       this.setState({showInfo:false, showError:true, statusCode:error.request.status})
@@ -52,9 +55,7 @@ export default class Explorer extends Component {
     if(this.state.isFound === false) return
     axios.get(`${process.env.REACT_APP_SERVER}/weather?lat=${lat}&lon=${lon}`)
     .then((res) =>{
-      console.log(res.data)
-        if(typeof res.data === 'string')this.setState({weatherDataObj:{}})
-        else this.setState({weatherDataObj:res.data})
+       this.setState({weatherDataObj:res.data})
     }).catch((error) =>{
         this.setState({weatherDataObj:{}})
         console.log({error: "Something went wrong."})
@@ -65,9 +66,7 @@ export default class Explorer extends Component {
     if(this.state.isFound === false) return
     axios.get(`${process.env.REACT_APP_SERVER}/forecast?lat=${lat}&lon=${lon}`)
     .then((res) =>{
-      console.log(res.data)
-      if(typeof res.data === 'string') this.setState({weatherForecast:[]})
-      else this.setState({weatherForecast:res.data})
+      this.setState({weatherForecast:[]})
     }).catch((error) =>{
       this.setState({weatherForecast:[]})
       console.log({error:"Cannot get forecast weather"})
@@ -78,7 +77,6 @@ export default class Explorer extends Component {
     if(this.state.isFound === false) return
     axios.get(`${process.env.REACT_APP_SERVER}/movie?city=${city}`)
     .then((res) =>{
-      console.log(res.data)
       this.setState({movieDataArray: res.data})
     }).catch((error) =>{
       this.setState({movieDataArray: []})
@@ -86,8 +84,20 @@ export default class Explorer extends Component {
     })
   }
 
+  getYelpData = (lat ,lon) =>{
+    if(this.state.isFound === false) return
+    axios.get(`${process.env.REACT_APP_SERVER}/yelp?lat=${lat}&lon=${lon}`)
+    .then((res) =>{
+        this.setState({yelpData:res.data})
+    }).catch((error) =>{
+        this.setState({yelpData:{}})
+        console.log({error: "Something went wrong."})
+    })
+  }
+
+
   render() {
-    const{city, lat, lon, visible, showInfo, showError, statusCode, weatherDataObj, movieDataArray, weatherForecast} = this.state
+    const{city, lat, lon, visible, showInfo, showError, statusCode, weatherDataObj, movieDataArray, weatherForecast, yelpData} = this.state
     return (
       <div className="text-light">
           <Form onSubmit={this.handleCityInfo}>
@@ -115,6 +125,9 @@ export default class Explorer extends Component {
                 </div>
                 <div className="movieItem">
                   <ShowMovies className="movieItem" movieDataArray={movieDataArray}></ShowMovies>
+                </div>
+                <div className='yelpItem'>
+                  <FetchYelp yelpData={yelpData}></FetchYelp>
                 </div>
               </div>
             </div>
